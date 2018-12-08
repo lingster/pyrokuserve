@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "simple": {
+      "format": "%(asctime)s,%(msecs)03d %(levelname)s [%(name)s.%(module)s.%(funcName)s] [%(lineno)s] %(message)s",
+      "datefmt": "%Y-%m-%dT%H:%M:%S"
+    }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "level": "DEBUG",
+      "formatter": "simple",
+      "stream": "ext://sys.stdout"
+    },
+    "info_file_handler": {
+      "class": "logging.handlers.TimedRotatingFileHandler",
+      "when": "midnight",
+      "interval": 1,
+      "utc": true,
+      "level": "INFO",
+      "formatter": "simple",
+      "filename": "$HOME/logs/info.log",
+      "backupCount": 32,
+      "encoding": "utf8"
+    },
+    "warning_file_handler": {
+      "class": "logging.handlers.TimedRotatingFileHandler",
+      "when": "midnight",
+      "interval": 1,
+      "utc": true,
+      "backupCount": 32,
+      "level": "WARNING",
+      "formatter": "simple",
+      "filename": "$HOME/logs/warnings.log",
+      "encoding": "utf8"
+    },
+    "error_file_handler": {
+      "class": "logging.handlers.TimedRotatingFileHandler",
+      "when": "midnight",
+      "interval": 1,
+      "utc": true,
+      "backupCount": 32,
+      "formatter": "simple",
+      "level": "ERROR",
+      "filename": "$HOME/logs/errors.log",
+      "encoding": "utf8"
+    },
+    "debug_file_handler": {
+      "class": "logging.handlers.TimedRotatingFileHandler",
+      "level": "DEBUG",
+      "when": "midnight",
+      "interval": 1,
+      "utc": true,
+      "formatter": "simple",
+      "filename": "$HOME/logs/debug.log",
+      "backupCount": 32,
+      "encoding": "utf8"
+    }
+  },
+  "loggers": {
+    "my_module": {
+      "level": "ERROR",
+      "handlers": [
+        "console"
+      ],
+      "propagate": "no"
+    }
+  },
+  "root": {
+    "level": "INFO",
+    "handlers": [
+      "console",
+      "info_file_handler",
+      "warning_file_handler",
+      "error_file_handler"
+    ]
+  }
+}
