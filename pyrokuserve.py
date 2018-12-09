@@ -1,17 +1,22 @@
-from roku import Roku
 from rokucontroller import RokuController
 from sanic import Sanic, response
-import json
 
 app = Sanic()
 
 rokuc = RokuController()
 
 
-@app.route('/device/list')
+@app.route('/device/list', methods=['GET'])
 async def devices_list(request):
     return response.json(rokuc.get_devices(), status=200)
 
+
+@app.route('/device/<id:int>/commandlist/')
+async def exec_command(request, id):
+    try:
+        return response.json({'message': rokuc.get_commands(id)}, status=200)
+    except Exception as e:
+        return response.json({'ERROR': e}, status=400)
 
 @app.route('/device/<id:int>/command/<command:[a-z]+>')
 async def exec_command(request, id, command):

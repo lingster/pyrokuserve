@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 class RokuController():
     devices = []
 
-    def __init__(self, timeout: int = 10):
+    def __init__(self, timeout: int = 2):
         logger.info("Searching for roku devices...")
         self.devices = Roku.discover(timeout=timeout)
         if self.devices is None:
@@ -39,6 +39,9 @@ class RokuController():
             items.append(item)
         return items
 
+    def get_commands(self, id: int):
+        return self.devices[id].commands
+
     def exec_command(self, id: int, command: str):
         command_to_call = getattr(self.devices[id], command)
         command_to_call()
@@ -52,11 +55,11 @@ class RokuController():
             logger.info(f'added: {app[1].name}')
         return apps
 
-    def get_app(self, myroku: Roku, app_name: str):
-        for app in myroku.apps:
-            if app.name.to == app_name.lower():
-                return app
-        return None
+    #def get_app(self, myroku: Roku, app_name: str):
+    #    for app in myroku.apps:
+    #        if app.name.to == app_name.lower():
+    #            return app
+    #    return None
 
     def launch_app(self, device_id: int, app_id: int):
         self.devices[device_id].apps[app_id].launch
