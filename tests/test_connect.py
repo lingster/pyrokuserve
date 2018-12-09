@@ -28,8 +28,8 @@ async def test_list_roku_devices(test_cli):
 async def test_list_commands(test_cli):
     resp = await test_cli.get('/device/0/commandlist')
     assert resp.status == 200
-    expected = set('back', 'backspace', 'down', 'enter', 'forward', 'home', 'info', 'left', 'literal', 'play',
-                   'replay', 'reverse', 'right', 'search', 'select', 'up')
-    assert set(resp.json[0]).issubset(expected)
+    expected = {'back', 'backspace', 'down', 'enter', 'forward', 'home', 'info', 'left', 'literal', 'play', 'replay',
+                'reverse', 'right', 'search', 'select', 'up'}
+    assert expected.issubset(set(resp.json[0]))
 
 
