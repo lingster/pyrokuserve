@@ -27,5 +27,33 @@ you can then send rest requests like:
 |http://localhost:8000/device/<device_id>/commandlist/ | returns list of commands to run against the device |
 |http://localhost:8000/device/1/command/<command>/ | execute the command, eg home will send roku to the home page |
 
+Swagger documentation is available here: 
+http://localhost:8000/swagger
+
 There are some very simple pytests in here.
+
+
+Notes: 
+Firewalld - if you are using firewalld, then you will need to open up traffic for incoming requests to port 1900 as well as outgoing requests. Following example services to be opened up: 
+
+upnp-client.xml
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>UPnP Client</short>
+  <description>Universal Plug and Play client for auto-configuration of network routers (use only in trusted zones).</description>
+  <source-port port="1900" protocol="udp"/>
+</service>
+
+upnp.xml
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>UPNP</short>
+  <description>Simple Service Discovery Protocol</description>
+  <port protocol="udp" port="1900"/>
+  <destination ipv4="239.255.255.250" ipv6="ff02::c" />
+</service>
+
+See: https://github.com/firewalld/firewalld/issues/25
+and 
+https://github.com/firewalld/firewalld/issues/260
 

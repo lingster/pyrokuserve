@@ -4,11 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pytest-sanic = "*"
+sanic-openapi = "*"
+black = ">=18.9b0" 
 
 [packages]
 roku = "*"
 sanic = "*"
-pytest-sanic = "*"
 
 [requires]
 python_version = "3.6"
