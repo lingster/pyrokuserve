@@ -1,0 +1,45 @@
+[project]
+name = "pyrokuserve"
+version = "0.1.0"
+description = "REST API server for controlling Roku devices on the local network"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "roku>=4.1.0",
+    "sanic>=25.12.0",
+    "sanic-ext>=25.12.0",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0",
+    "pytest-asyncio>=1.0",
+    "pytest-cov>=7.0",
+    "sanic-testing>=24.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "--cov=. --cov-report=term-missing --cov-config=.coveragerc -W ignore::coverage.exceptions.CoverageWarning"
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "tests/*",
+    ".venv/*",
+    "*/site-packages/*",
+    "setup.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "pass",
+]
