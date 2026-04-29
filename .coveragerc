@@ -6,6 +6,7 @@ omit =
     */site-packages/*
     setup.py
 
+
 [report]
 exclude_lines =
     pragma: no cover
