@@ -1,8 +1,12 @@
-FROM python:3.6
-COPY . /app
+FROM python:3.13-slim
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
 WORKDIR /app
-RUN python -m pip install pipenv
-#RUN pip install pipenv
-RUN pipenv install
+COPY pyproject.toml uv.lock ./
+RUN uv sync --no-dev --frozen
+
+COPY . .
+
 EXPOSE 8000
-CMD ["python", "pyrokuserve.py"]
+CMD ["uv", "run", "python", "pyrokuserve.py"]
