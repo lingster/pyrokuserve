@@ -53,7 +53,7 @@ class RokuController:
         return self.devices[device_id].apps[app_id].store()
 
     def active_app(self, device_id: int):
-        return self.devices[device_id].activeapp.name
+        return self.devices[device_id].active_app.name
 
     def literal(self, device_id: int, text: str):
         return self.devices[device_id].literal(text)
